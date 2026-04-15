@@ -1,6 +1,6 @@
 # Kiến trúc pipeline — Lab Day 10
 
-**Nhóm:** _______________  
+**Nhóm:** E4  
 **Cập nhật:** 2026-04-15
 
 ---
