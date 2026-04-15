@@ -8,7 +8,11 @@
 
 | Nguồn | Phương thức ingest | Failure mode chính | Metric / alert |
 |-------|-------------------|-------------------|----------------|
-| … | … | … | … |
+| Customer Service Policy (`policy_refund_v4`, `sla_p1_2026`) | Batch Export (CSV từ DB/Wiki) | Chứa chunk quá hạn (stale), duplicate chunk, thiếu dữ liệu (rỗng) | `no_stale_refund_window` (halt), `no_duplicate_chunk_text`, `hits_forbidden` |
+| HR Policy (`hr_leave_policy`) | Batch Export (CSV từ HR Portal) | Lẫn lộn chính sách cũ/mới (2025 vs 2026), xung đột phiên bản | Quarantine count, Date format/version expectation |
+| IT Helpdesk (`it_helpdesk_faq`) | Batch Export (CSV từ ITSM/Confluence) | Định dạng ngày tháng không chuẩn ISO (ví dụ `dd/mm/yyyy`), thiếu `effective_date` | Expectation về format ISO 8601 (`valid_date_format`) |
+| Legacy Systems (`legacy_catalog_xyz_zzz`) | Unplanned Ingestion (Crawler/Dump) | Không có trong `allowed_doc_ids`, rác dữ liệu | Alert Quarantine (Doc ID lạ) |
+
 
 ---
 

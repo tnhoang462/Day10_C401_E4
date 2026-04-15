@@ -13,7 +13,6 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-# Khớp export hợp lệ trong lab (mở rộng khi nhóm thêm doc mới — phải đồng bộ contract).
 ALLOWED_DOC_IDS = frozenset(
     {
         "policy_refund_v4",
@@ -25,6 +24,11 @@ ALLOWED_DOC_IDS = frozenset(
 
 _ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _DMY_SLASH = re.compile(r"^(\d{2})/(\d{2})/(\d{4})$")
+
+# --- RULE MỚI TỪ SPRINT 2 ---
+MIN_CHUNK_LENGTH = 15
+DRAFT_KEYWORDS = ["bản nháp", "draft", "lỗi migration", "bản sync cũ"]
+HTML_TAGS_RE = re.compile(r'<[^>]+>')
 
 
 def _norm_text(s: str) -> str:
@@ -114,6 +118,23 @@ def clean_rows(
         if not text:
             quarantine.append({**raw, "reason": "missing_chunk_text"})
             continue
+
+        # --- RULE MỚI 1: Quarantine nếu độ dài text quá ngắn ---
+        if len(text.strip()) < MIN_CHUNK_LENGTH:
+            quarantine.append({**raw, "reason": "chunk_text_too_short"})
+            continue
+
+        # --- RULE MỚI 2: Quarantine nếu chứa các từ khóa báo hiệu dữ liệu lỗi/nháp (ví dụ có lẫn "lỗi migration") ---
+        text_lower = text.lower()
+        if any(kw in text_lower for kw in DRAFT_KEYWORDS):
+            quarantine.append({**raw, "reason": "contains_draft_or_error_keywords"})
+            continue
+
+        # --- RULE MỚI 3: Loại bỏ HTML tags trong chunk_text (nếu bị parser lỗi sinh ra) ---
+        if HTML_TAGS_RE.search(text):
+            text = HTML_TAGS_RE.sub('', text)
+            # Thêm tag để dễ nhận diện metric impact
+            text += " [cleaned: removed_html]"
 
         key = _norm_text(text)
         if key in seen_text:

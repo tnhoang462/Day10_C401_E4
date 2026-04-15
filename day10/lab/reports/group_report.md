@@ -43,15 +43,23 @@ _________________
 
 | Rule / Expectation mới (tên ngắn) | Trước (số liệu) | Sau / khi inject (số liệu) | Chứng cứ (log / CSV / commit) |
 |-----------------------------------|------------------|-----------------------------|-------------------------------|
-| … | … | … | … |
+| `normalize_effective_date_ddmmyyyy_to_iso` (rule) | non-ISO date còn xuất hiện ở raw (`01/02/2026`) | `non_iso_rows=0` sau clean | `artifacts/logs/run_sprint2.log`, dòng expectation `effective_date_iso_yyyy_mm_dd` |
+| `quarantine_stale_hr_policy_before_2026` (rule) | Có bản HR cũ 2025 trong raw | Loại khỏi cleaned, không còn stale marker `10 ngày phép năm` trong cleaned | `artifacts/logs/run_sprint2.log`, expectation `hr_leave_no_stale_10d_annual` |
+| `dedupe_chunk_text_normalized` (rule) | raw có duplicate chunk refund (2 dòng gần trùng) | `quarantine_records=4`, cleaned giữ 1 bản chuẩn | `artifacts/logs/run_sprint2.log`, `artifacts/quarantine/quarantine_sprint2.csv` |
+| `effective_date_iso_yyyy_mm_dd` (expectation, halt) | Trước clean có ngày không ISO | Sau clean pass: `non_iso_rows=0` | `artifacts/logs/run_sprint2.log` |
+| `hr_leave_no_stale_10d_annual` (expectation, halt) | Trước clean có phrase stale HR 2025 | Sau clean pass: `violations=0` | `artifacts/logs/run_sprint2.log` |
 
 **Rule chính (baseline + mở rộng):**
 
-- …
+- Allowlist `doc_id` và quarantine `unknown_doc_id`.
+- Chuẩn hoá `effective_date` về `YYYY-MM-DD`; quarantine nếu thiếu/sai format.
+- Quarantine bản `hr_leave_policy` cũ (`effective_date < 2026-01-01`).
+- Quarantine chunk rỗng; dedupe theo normalized text.
+- Fix stale refund window `14 ngày làm việc -> 7 ngày làm việc` cho `policy_refund_v4`.
 
 **Ví dụ 1 lần expectation fail (nếu có) và cách xử lý:**
 
-_________________
+Khi chạy kịch bản inject (`--no-refund-fix --skip-validate`), expectation `refund_no_stale_14d_window` fail với `violations=1` (xem `artifacts/logs/run_sprint3-dirty.log`). Cách xử lý là chạy lại pipeline chuẩn (bật refund fix, không skip validate) để expectation pass và publish lại cleaned snapshot.
 
 ---
 
