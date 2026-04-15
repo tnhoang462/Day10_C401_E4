@@ -8,7 +8,7 @@
 ## 1. Sơ đồ luồng
 
 ```mermaid
-flowchart LR
+flowchart TD
     RAW[("data/raw/<br/>policy_export_dirty.csv")] --> LOAD[load_raw_csv<br/>log: raw_records]
     LOAD --> CLEAN[clean_rows<br/>transform/cleaning_rules.py]
     CLEAN -->|bad rows + reason| QUAR[("artifacts/quarantine/<br/>quarantine_&lt;run_id&gt;.csv")]
