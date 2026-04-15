@@ -1,0 +1,161 @@
+{
+  "task": "Contractor cần Admin Access (Level 3) để khắc phục sự cố P1 đang active. Quy trình cấp quyền tạm thời như thế nào?",
+  "route_reason": "task contains policy keyword(s): cấp quyền, access, level 3",
+  "risk_high": false,
+  "needs_tool": true,
+  "hitl_triggered": false,
+  "retrieved_chunks": [
+    {
+      "text": "Level 1 — Read Only:\nÁp dụng cho: Tất cả nhân viên mới trong 30 ngày đầu.\nPhê duyệt: Line Manager.\nThời gian xử lý: 1 ngày làm việc.\n\nLevel 2 — Standard Access:\nÁp dụng cho: Nhân viên chính thức đã qua thử việc.\nPhê duyệt: Line Manager + IT Admin.\nThời gian xử lý: 2 ngày làm việc.\n\nLevel 3 — Elevated Access:\nÁp dụng cho: Team Lead, Senior Engineer, Manager.\nPhê duyệt: Line Manager + IT Admin + IT Security.\nThời gian xử lý: 3 ngày làm việc.\n\nLevel 4 — Admin Access:\nÁp dụng cho: DevOps, SRE, IT Admin.\nPhê duyệt: IT Manager + CISO.\nThời gian xử lý: 5 ngày làm việc.\nYêu cầu thêm: Training bắt buộc về security policy.",
+      "source": "it/access-control-sop.md",
+      "score": 0.6532,
+      "metadata": {
+        "effective_date": "2026-01-01",
+        "source": "it/access-control-sop.md",
+        "department": "IT Security",
+        "section": "Section 2: Phân cấp quyền truy cập"
+      }
+    },
+    {
+      "text": "Bước 1: Nhân viên tạo Access Request ticket trên Jira (project IT-ACCESS).\nBước 2: Line Manager phê duyệt yêu cầu trong 1 ngày làm việc.\nBước 3: IT Admin kiểm tra compliance và cấp quyền.\nBước 4: IT Security review với Level 3 và Level 4.\nBước 5: Nhân viên nhận thông báo qua email khi quyền được cấp.",
+      "source": "it/access-control-sop.md",
+      "score": 0.6284,
+      "metadata": {
+        "section": "Section 3: Quy trình yêu cầu cấp quyền",
+        "source": "it/access-control-sop.md",
+        "effective_date": "2026-01-01",
+        "department": "IT Security"
+      }
+    },
+    {
+      "text": "Escalation chỉ áp dụng khi cần thay đổi quyền hệ thống ngoài quy trình thông thường.\nVí dụ: Khẩn cấp trong sự cố P1, cần cấp quyền tạm thời để fix incident.\n\nQuy trình escalation khẩn cấp:\n1. On-call IT Admin có thể cấp quyền tạm thời (max 24 giờ) sau khi được Tech Lead phê duyệt bằng lời.\n2. Sau 24 giờ, phải có ticket chính thức hoặc quyền bị thu hồi tự động.\n3. Mọi quyền tạm thời phải được ghi log vào hệ thống Security Audit.",
+      "source": "it/access-control-sop.md",
+      "score": 0.6072,
+      "metadata": {
+        "source": "it/access-control-sop.md",
+        "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
+        "effective_date": "2026-01-01",
+        "department": "IT Security"
+      }
+    }
+  ],
+  "retrieved_sources": [],
+  "policy_result": {
+    "policy_applies": true,
+    "policy_name": "refund_policy_v4",
+    "exceptions_found": [],
+    "source": [
+      "it/access-control-sop.md"
+    ],
+    "policy_version_note": "",
+    "explanation": "**1. Yêu cầu này có vi phạm chính sách không?**  \n**Có** – yêu cầu “Contractor cần Admin Access (Level 3) để khắc phục sự cố P1” không phù hợp với quy định hiện hành.\n\n---\n\n### 2. Các điều khoản vi phạm\n\n| Điều khoản trong tài liệu | Nội dung | Vì sao vi phạm |\n|---------------------------|----------|----------------|\n| **Level 3 – elevated access** | *Áp dụng cho: team lead, senior engineer, manager.* <br> *Phê duyệt: line manager + IT admin + IT security.* | Contractor không nằm trong danh sách “team lead, senior engineer, manager”. Do đó không đủ tiêu chí để được cấp **Level 3**. |\n| **Level 4 – admin access** | *Áp dụng cho: DevOps, SRE, IT admin.* <br> *Phê duyệt: IT manager + CISO.* | Yêu cầu “Admin Access (Level 3)” thực chất là **Level 4** (admin) nhưng lại được gán nhầm cấp độ. Nếu muốn cấp **Level 4**, người yêu cầu phải thuộc các vai trò trên và được phê duyệt bởi IT manager + CISO – điều này không áp dụng cho contractor. |\n| **Quy trình phê duyệt chuẩn** | Bước 1: Tạo ticket trên Jira (project *it‑access*). <br> Bước 2: Line manager phê duyệt trong 1 ngày làm việc. <br> Bước 3: IT admin kiểm tra compliance và cấp quyền. <br> Bước 4: IT security review (Level 3 & Level 4). | Contractor không có **line manager** nội bộ, không thể thực hiện Bước 2 và Bước 3 theo quy trình chuẩn. |\n| **Quy trình escalation khẩn cấp** | 1. *On‑call IT admin* có thể cấp quyền **tạm thời (max 24 giờ)** **sau khi được Tech Lead phê duyệt bằng lời**. <br> 2. Sau 24 giờ phải có ticket chính thức hoặc quyền bị thu hồi tự động. | - Quyền tạm thời chỉ được cấp cho **nhân viên** (on‑call IT admin) chứ không phải cho contractor. <br> - Phê duyệt “bằng lời” chỉ dành cho **Tech Lead** nội bộ, không áp dụng cho bên ngoài. <br> - Không có điều khoản cho phép contractor nhận quyền tạm thời trực tiếp. |\n\n**Tóm tắt:**  \n- Contractor không thuộc bất kỳ nhóm người dùng nào được định nghĩa trong Level 3 hay Level 4.  \n- Không có cơ chế phê duyệt cho contractor trong quy trình chuẩn hay quy trình escalation.  \n- Do đó, yêu cầu vi phạm cả **điều kiện người dùng** và **điều kiện phê duyệt** của chính sách.\n\n---\n\n### 3. Xác nhận (nếu không vi phạm)\n\n*Không áp dụng* – vì yêu cầu đã vi phạm các điều khoản trên, nên không thể xác nhận là hợp lệ.\n\n---\n\n## Đề xuất cách thực hiện hợp pháp\n\n1. **Tạo ticket chuẩn** trên Jira (project *it‑access*) với mô tả chi tiết về sự cố P1.  \n2. **Xác định người chịu trách nhiệm nội bộ** (ví dụ: Tech Lead hoặc Manager) để thực hiện **phê duyệt bằng lời** cho quyền tạm thời.  \n3. **On‑call IT admin** (phải là nhân viên nội bộ) có thể cấp **temporary admin access (Level 4)** cho **tài khoản nội bộ** (không phải contractor) trong tối đa **24 giờ**.  \n4. **Sau 24 giờ**, hoặc tạo ticket chính thức để chuyển sang **cấp quyền lâu dài** (nếu cần) và thực hiện đầy đủ quy trình Level 3/Level 4 (line manager, IT admin, IT security, IT manager + CISO).  \n5. **Ghi log** toàn bộ hành động vào hệ thống **security audit** như quy định.  \n\nNếu việc sử dụng contractor là bắt buộc, công ty cần **thiết lập một quy trình vendor‑specific** (ví dụ: “External Contractor Access Procedure”) trong đó:  \n- Contractor được onboard như “temporary employee” với role phù hợp (ví dụ: **Level 2** hoặc **Level 3**).  \n- Phê duyệt phải bao gồm **line manager của contractor (hoặc đại diện), IT admin, IT security, và IT manager/CISO** tùy mức độ.  \n- Tất cả các bước vẫn phải được ghi lại trong Jira và audit log.\n\n--- \n\n**Kết luận:** Yêu cầu hiện tại **vi phạm** chính sách; để đáp ứng nhu cầu khắc phục P1 một cách hợp pháp, cần tuân thủ quy trình escalation cho nhân viên nội bộ hoặc thiết lập quy trình riêng cho contractor."
+  },
+  "mcp_tools_used": [
+    {
+      "tool": "search_kb",
+      "input": {
+        "query": "Contractor cần Admin Access (Level 3) để khắc phục sự cố P1 đang active. Quy trình cấp quyền tạm thời như thế nào?",
+        "top_k": 3
+      },
+      "output": {
+        "chunks": [
+          {
+            "text": "Level 1 — Read Only:\nÁp dụng cho: Tất cả nhân viên mới trong 30 ngày đầu.\nPhê duyệt: Line Manager.\nThời gian xử lý: 1 ngày làm việc.\n\nLevel 2 — Standard Access:\nÁp dụng cho: Nhân viên chính thức đã qua thử việc.\nPhê duyệt: Line Manager + IT Admin.\nThời gian xử lý: 2 ngày làm việc.\n\nLevel 3 — Elevated Access:\nÁp dụng cho: Team Lead, Senior Engineer, Manager.\nPhê duyệt: Line Manager + IT Admin + IT Security.\nThời gian xử lý: 3 ngày làm việc.\n\nLevel 4 — Admin Access:\nÁp dụng cho: DevOps, SRE, IT Admin.\nPhê duyệt: IT Manager + CISO.\nThời gian xử lý: 5 ngày làm việc.\nYêu cầu thêm: Training bắt buộc về security policy.",
+            "source": "it/access-control-sop.md",
+            "score": 0.6532,
+            "metadata": {
+              "effective_date": "2026-01-01",
+              "source": "it/access-control-sop.md",
+              "department": "IT Security",
+              "section": "Section 2: Phân cấp quyền truy cập"
+            }
+          },
+          {
+            "text": "Bước 1: Nhân viên tạo Access Request ticket trên Jira (project IT-ACCESS).\nBước 2: Line Manager phê duyệt yêu cầu trong 1 ngày làm việc.\nBước 3: IT Admin kiểm tra compliance và cấp quyền.\nBước 4: IT Security review với Level 3 và Level 4.\nBước 5: Nhân viên nhận thông báo qua email khi quyền được cấp.",
+            "source": "it/access-control-sop.md",
+            "score": 0.6284,
+            "metadata": {
+              "section": "Section 3: Quy trình yêu cầu cấp quyền",
+              "source": "it/access-control-sop.md",
+              "effective_date": "2026-01-01",
+              "department": "IT Security"
+            }
+          },
+          {
+            "text": "Escalation chỉ áp dụng khi cần thay đổi quyền hệ thống ngoài quy trình thông thường.\nVí dụ: Khẩn cấp trong sự cố P1, cần cấp quyền tạm thời để fix incident.\n\nQuy trình escalation khẩn cấp:\n1. On-call IT Admin có thể cấp quyền tạm thời (max 24 giờ) sau khi được Tech Lead phê duyệt bằng lời.\n2. Sau 24 giờ, phải có ticket chính thức hoặc quyền bị thu hồi tự động.\n3. Mọi quyền tạm thời phải được ghi log vào hệ thống Security Audit.",
+            "source": "it/access-control-sop.md",
+            "score": 0.6072,
+            "metadata": {
+              "source": "it/access-control-sop.md",
+              "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
+              "effective_date": "2026-01-01",
+              "department": "IT Security"
+            }
+          }
+        ],
+        "sources": [
+          "it/access-control-sop.md"
+        ],
+        "total_found": 3
+      },
+      "error": null,
+      "timestamp": "2026-04-14T18:26:10.060397"
+    }
+  ],
+  "final_answer": "[SYNTHESIS ERROR] Không thể gọi LLM. Kiểm tra API key trong .env.",
+  "sources": [
+    "it/access-control-sop.md"
+  ],
+  "confidence": 0.83,
+  "history": [
+    "[supervisor] received task: Contractor cần Admin Access (Level 3) để khắc phục sự cố P1 đang active. Quy trì",
+    "[supervisor] route=policy_tool_worker reason=task contains policy keyword(s): cấp quyền, access, level 3",
+    "[policy_tool_worker] called",
+    "[policy_tool_worker] Phân tích hoàn tất.",
+    "[synthesis_worker] called",
+    "[synthesis_worker] answer generated, confidence=0.83, sources=['it/access-control-sop.md']",
+    "[graph] completed in 43775ms",
+    "[graph] trace saved → ./artifacts/traces/run_20260414_182604.json"
+  ],
+  "workers_called": [
+    "policy_tool_worker",
+    "policy_tool_worker",
+    "synthesis_worker",
+    "synthesis_worker"
+  ],
+  "supervisor_route": "policy_tool_worker",
+  "latency_ms": 43775,
+  "run_id": "run_20260414_182604",
+  "worker_io_logs": [
+    {
+      "worker": "policy_tool_worker",
+      "input": {
+        "task": "Contractor cần Admin Access (Level 3) để khắc phục sự cố P1 đang active. Quy trình cấp quyền tạm thời như thế nào?",
+        "chunks_count": 0,
+        "needs_tool": true
+      },
+      "output": {
+        "policy_applies": true,
+        "mcp_calls": 1
+      },
+      "error": null
+    },
+    {
+      "worker": "synthesis_worker",
+      "input": {
+        "task": "Contractor cần Admin Access (Level 3) để khắc phục sự cố P1 đang active. Quy trình cấp quyền tạm thời như thế nào?",
+        "chunks_count": 3,
+        "has_policy": true
+      },
+      "output": {
+        "answer_length": 65,
+        "sources": [
+          "it/access-control-sop.md"
+        ],
+        "confidence": 0.83
+      },
+      "error": null
+    }
+  ],
+  "question_id": "q13"
+}

@@ -1,0 +1,112 @@
+{
+  "task": "Nhân viên vừa vào thử việc (trong probation period) muốn làm remote vì lý do cá nhân. Điều kiện là gì?",
+  "route_reason": "task contains retrieval keyword(s): remote, probation",
+  "risk_high": false,
+  "needs_tool": false,
+  "hitl_triggered": false,
+  "retrieved_chunks": [
+    {
+      "text": "4.1 Điều kiện remote:\n- Nhân viên sau probation period có thể làm remote tối đa 2 ngày/tuần.\n- Team Lead phải phê duyệt lịch remote qua HR Portal.\n- Ngày onsite bắt buộc: Thứ 3 và Thứ 5 theo lịch team.\n\n4.2 Yêu cầu kỹ thuật khi remote:\n- Kết nối VPN bắt buộc khi làm việc với hệ thống nội bộ.\n- Camera bật trong các cuộc họp team.",
+      "source": "hr/leave-policy-2026.pdf",
+      "score": 0.7312,
+      "metadata": {
+        "effective_date": "2026-01-01",
+        "section": "Phần 4: Remote work policy",
+        "source": "hr/leave-policy-2026.pdf",
+        "department": "HR"
+      }
+    },
+    {
+      "text": "Hoàn tiền — Điều kiện áp dụng:\nYêu cầu được gửi trong vòng 7 ngày kể từ thời điểm xác nhận đơn hàng.\n\nNgoại lệ không được hoàn tiền:\n- Sản phẩm thuộc danh mục hàng kỹ thuật số (license key, subscription).\n- Đơn hàng đã áp dụng mã giảm giá đặc biệt theo chương trình khuyến mãi Flash Sale.\n- Sản phẩm đã được kích hoạt hoặc đăng ký tài khoản.",
+      "source": "policy/refund-v4.pdf",
+      "score": 0.6146,
+      "metadata": {
+        "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
+        "department": "CS",
+        "source": "policy/refund-v4.pdf",
+        "effective_date": "2026-02-01"
+      }
+    },
+    {
+      "text": "Tài liệu này quy định quy trình cấp phép truy cập vào các hệ thống nội bộ của công ty.\nÁp dụng cho tất cả nhân viên, contractor, và third-party vendor.",
+      "source": "it/access-control-sop.md",
+      "score": 0.6076,
+      "metadata": {
+        "effective_date": "2026-01-01",
+        "section": "Section 1: Phạm vi và mục đích",
+        "source": "it/access-control-sop.md",
+        "department": "IT Security"
+      }
+    }
+  ],
+  "retrieved_sources": [
+    "it/access-control-sop.md",
+    "hr/leave-policy-2026.pdf",
+    "policy/refund-v4.pdf"
+  ],
+  "policy_result": {},
+  "mcp_tools_used": [],
+  "final_answer": "[SYNTHESIS ERROR] Không thể gọi LLM. Kiểm tra API key trong .env.",
+  "sources": [
+    "it/access-control-sop.md",
+    "hr/leave-policy-2026.pdf",
+    "policy/refund-v4.pdf"
+  ],
+  "confidence": 0.85,
+  "history": [
+    "[supervisor] received task: Nhân viên vừa vào thử việc (trong probation period) muốn làm remote vì lý do cá ",
+    "[supervisor] route=retrieval_worker reason=task contains retrieval keyword(s): remote, probation",
+    "[retrieval_worker] called",
+    "[retrieval_worker] retrieved 3 chunks from ['it/access-control-sop.md', 'hr/leave-policy-2026.pdf', 'policy/refund-v4.pdf']",
+    "[synthesis_worker] called",
+    "[synthesis_worker] answer generated, confidence=0.85, sources=['it/access-control-sop.md', 'hr/leave-policy-2026.pdf', 'policy/refund-v4.pdf']",
+    "[graph] completed in 17761ms",
+    "[graph] trace saved → ./artifacts/traces/run_20260414_182648.json"
+  ],
+  "workers_called": [
+    "retrieval_worker",
+    "retrieval_worker",
+    "synthesis_worker",
+    "synthesis_worker"
+  ],
+  "supervisor_route": "retrieval_worker",
+  "latency_ms": 17761,
+  "run_id": "run_20260414_182648",
+  "worker_io_logs": [
+    {
+      "worker": "retrieval_worker",
+      "input": {
+        "task": "Nhân viên vừa vào thử việc (trong probation period) muốn làm remote vì lý do cá nhân. Điều kiện là gì?",
+        "top_k": 3
+      },
+      "output": {
+        "chunks_count": 3,
+        "sources": [
+          "it/access-control-sop.md",
+          "hr/leave-policy-2026.pdf",
+          "policy/refund-v4.pdf"
+        ]
+      },
+      "error": null
+    },
+    {
+      "worker": "synthesis_worker",
+      "input": {
+        "task": "Nhân viên vừa vào thử việc (trong probation period) muốn làm remote vì lý do cá nhân. Điều kiện là gì?",
+        "chunks_count": 3,
+        "has_policy": false
+      },
+      "output": {
+        "answer_length": 65,
+        "sources": [
+          "it/access-control-sop.md",
+          "hr/leave-policy-2026.pdf",
+          "policy/refund-v4.pdf"
+        ],
+        "confidence": 0.85
+      },
+      "error": null
+    }
+  ],
+  "question_id": "q14"
+}
